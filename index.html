@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Infinity One Classic Platformer | Rasmiy sayt</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a0f1e 0%, #0c1222 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+            color: #f0f3fa;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 5px rgba(255, 70, 85, 0.6), 0 0 10px rgba(255, 70, 85, 0.3);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 0 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 15, 30, 0.9);
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD166, #FF6B6B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+            background: #1a1f2e;
+            padding: 6px 12px;
+            border-radius: 40px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #aab3cf;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+
+        .lang-btn.active {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #ccd6f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #FF6B6B;
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            padding: 60px 0 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .hero-badge {
+            background: #ff4d4d22;
+            border-left: 4px solid #ff6b6b;
+            padding: 6px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffb4a2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #aab3cf;
+            margin-bottom: 32px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .store-btn, .android-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .store-btn {
+            background: #1e2a47;
+            color: white;
+            border: 1px solid #2e3b5e;
+        }
+
+        .store-btn:hover {
+            background: #ff4d4d;
+            transform: scale(1.02);
+        }
+
+        .android-btn {
+            background: #3ddc84;
+            color: #0a0f1e;
+        }
+
+        .android-btn:hover {
+            background: #2bb673;
+            transform: scale(1.02);
+        }
+
+        /* Logo section */
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            background: rgba(255,255,255,0.02);
+            border-radius: 48px;
+            padding: 20px;
+        }
+
+        .game-logo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .game-logo:hover {
+            transform: scale(1.02);
+        }
+
+        /* Features */
+        .features, .screenshots, .donation-section {
+            padding: 70px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 48px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: #ff6b6b;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: rgba(20, 28, 44, 0.7);
+            padding: 28px 20px;
+            border-radius: 32px;
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            background: #19213a;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+        }
+
+        .screenshot-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .screenshot-card {
+            background: #11161f;
+            border-radius: 28px;
+            overflow: hidden;
+            width: 280px;
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #0b0f17;
+        }
+
+        /* Donation */
+        .donation-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #1a1f30;
+            padding: 40px 32px;
+            border-radius: 48px;
+        }
+
+        .donation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+        }
+
+        .donate-link {
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .donate-link.mastercard {
+            background: #eb1c2e;
+            color: white;
+            box-shadow: 0 4px 15px rgba(235, 28, 46, 0.3);
+        }
+
+        .donate-link.som {
+            background: #2ecc71;
+            color: #1e1e2a;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .donate-link.alerts {
+            background: #ff6b6b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .donate-link:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.05);
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid #1f2a3e;
+            text-align: center;
+            color: #7d89b0;
+        }
+
+        @media (max-width: 800px) {
+            .hero-content h2 { font-size: 2.2rem; }
+            .container { padding: 0 20px; }
+            .nav { flex-direction: column; }
+            .game-logo { max-width: 280px; }
+            .donate-link { padding: 10px 20px; font-size: 0.9rem; }
+        }
+        .infinity-one-privacy-policy{
+            text-decoration: none;
+            color: #7d89b0;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="nav">
+            <div class="logo">
+                <h1>INFINITY ONE</h1>
+                <p class="trans" data-key="subtitle">Classic Platformer • Hardcore Challenge</p>
+            </div>
+            <div class="lang-switch">
+                <button class="lang-btn" data-lang="uz">🇺🇿 Uz</button>
+                <button class="lang-btn" data-lang="ru">🇷🇺 Ru</button>
+                <button class="lang-btn active" data-lang="en">🇬🇧 En</button>
+            </div>
+            <div class="nav-links">
+                <a class="trans" data-key="nav_features" onclick="scrollToSection('features')">Xususiyatlar</a>
+                <a class="trans" data-key="nav_screenshots" onclick="scrollToSection('screenshots')">Skrinshotlar</a>
+                <a class="trans" data-key="nav_download" onclick="scrollToSection('download')">Yuklab olish</a>
+                <a class="trans" data-key="nav_donate" onclick="scrollToSection('donate')">Donation</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge trans" data-key="badge">🔥 QIYIN O‘YINLAR UCHUN</div>
+                <h2><span class="trans" data-key="hero_title1">Die.</span> <span class="glow-text trans" data-key="hero_title2">Learn.</span> <span class="trans" data-key="hero_title3">Repeat.</span><br><span class="trans" data-key="hero_title4">No mercy.</span></h2>
+                <p class="trans" data-key="hero_desc">Level Devil, Geometry Dash va Cat Mario uslubidagi 2D platformer. Bir xato – boshidan. Tuzoqlar va ayyor darajalar.</p>
+                <div class="btn-group" id="download">
+                    <a href="https://apps.microsoft.com/store/detail/9PB4W9XMNQZ3" target="_blank" class="store-btn">🖥️ <span class="trans" data-key="store_windows">Microsoft Store (Windows)</span></a>
+                    <a href="#" class="android-btn" id="androidLink">📱 <span class="trans" data-key="store_android">Android versiya (APK)</span></a>
+                </div>
+                <p style="font-size: 0.85rem;">✅ Windows 10/11 | ⚡ 120 MB | 🔥 Bepul asosiy o‘yin</p>
+            </div>
+            <div class="hero-image">
+                <img src="img/logo.png" alt="Infinity One Logo" class="game-logo" id="gameLogo">
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features" id="features">
+            <h2 class="section-title trans" data-key="features_title">Xususiyatlar</h2>
+            <div class="features-grid">
+                <div class="feature-card"><div class="feature-icon">⚡</div><h3 class="trans" data-key="feat1_title">Brutal qiyinchilik</h3><p class="trans" data-key="feat1_desc">Har bir daraja sinov, har bir sakrash xavf.</p></div>
+                <div class="feature-card"><div class="feature-icon">🔁</div><h3 class="trans" data-key="feat2_title">Instant respawn</h3><p class="trans" data-key="feat2_desc">O‘limdan so‘ng darhol qayta boshlash.</p></div>
+                <div class="feature-card"><div class="feature-icon">🧠</div><h3 class="trans" data-key="feat3_title">Yod olish & vaqt</h3><p class="trans" data-key="feat3_desc">Darajalarni o‘rganing, tuzoqlarni oldindan biling.</p></div>
+                <div class="feature-card"><div class="feature-icon">📈</div><h3 class="trans" data-key="feat4_title">O‘lim hisoblagichi</h3><p class="trans" data-key="feat4_desc">Har bir darajada necha marta o‘lganingizni ko‘ring.</p></div>
+            </div>
+        </div>
+
+        <!-- Screenshots -->
+        <div class="screenshots" id="screenshots">
+            <h2 class="section-title trans" data-key="screenshots_title">Skrinshotlar</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot-card"><img src="img/20260403_150759.png" alt="ss1"><p class="trans" data-key="ss1_text">Tuzoqli platforma</p></div>
+                <div class="screenshot-card"><img src="img/20260403_150832.png" alt="ss2"><p class="trans" data-key="ss2_text">Xavfli zonalar</p></div>
+                <div class="screenshot-card"><img src="img/20260403_150902.png" alt="ss3"><p class="trans" data-key="ss3_text">Aniq sakrashlar</p></div>
+                <div class="screenshot-card"><img src="img/20260403_150931.png" alt="ss4"><p class="trans" data-key="ss4_text">Darajalar dizayni</p></div>
+            </div>
+        </div>
+
+        <!-- Donation section -->
+        <div class="donation-section" id="donate">
+            <div class="donation-card">
+                <h2 class="trans" data-key="donate_title">🤝 Qo‘llab-quvvatlash</h2>
+                <p class="trans" data-key="donate_text">Agar o‘yin sizga yoqsa va yangi kontent tezroq chiqishini istasangiz — ixtiyoriy donat qoldiring.</p>
+                <div class="donation-buttons">
+                    <a href="#" class="donate-link mastercard" id="mastercardLink">
+                        💳 Mastercard
+                    </a>
+                    <a href="#" class="donate-link som" id="somLink">
+                        💵 So‘m donat
+                    </a>
+                    <a href="#" class="donate-link alerts" id="alertsLink">
+                        🔔 Donation Alerts
+                    </a>
+                </div>
+                <p style="margin-top: 16px;" class="trans" data-key="donate_note">*Har bir donat yangi darajalar va tez yangilanishlar uchun turtki!</p>
+            </div>
+        </div>
+
+        <!-- Android versiya havolasi -->
+        <div style="text-align: center; margin: 20px 0 40px;">
+            <a href="#" id="androidDownloadBtn" class="android-btn" style="background: #3ddc84; padding: 14px 28px;">📲 <span class="trans" data-key="android_download_btn">Android versiyasini yuklab olish (APK)</span></a>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>📧 <span class="trans" data-key="contact_text">Savol yoki takliflar</span>: <a href="mailto:mgulmaxammadov@gmail.com" style="color:#ffb4a2;">mgulmaxammadov@gmail.com</a></p>
+        <p style="margin-top: 12px;">🎮 Infinity One Classic Platformer – Hardcore 2D platformer</p>
+        <p style="margin-top: 20px;"><a href="https://donat-iota.vercel.app/infinity-one-privacy-policy.html" class="infinity-one-privacy-policy">© 2026 Zetra Studio / Infinity One Privacy Policy</a></p>
+    </div>
+</footer>
+
+<script>
+    // Tarjimalar bazasi
+    const translations = {
+        uz: {
+            subtitle: "Classic Platformer • Hardcore Challenge",
+            badge: "🔥 QIYIN O‘YINLAR UCHUN",
+            hero_title1: "O‘l.",
+            hero_title2: "O‘rgan.",
+            hero_title3: "Takrorla.",
+            hero_title4: "Rahm yo‘q.",
+            hero_desc: "Level Devil, Geometry Dash va Cat Mario uslubidagi 2D platformer. Bir xato – boshidan. Tuzoqlar va ayyor darajalar.",
+            store_windows: "Microsoft Store (Windows)",
+            store_android: "Android versiya (APK)",
+            preview_text: "O‘YIN JARAYONI",
+            features_title: "Xususiyatlar",
+            feat1_title: "Brutal qiyinchilik",
+            feat1_desc: "Har bir daraja sinov, har bir sakrash xavf.",
+            feat2_title: "Instant respawn",
+            feat2_desc: "O‘limdan so‘ng darhol qayta boshlash.",
+            feat3_title: "Yod olish & vaqt",
+            feat3_desc: "Darajalarni o‘rganing, tuzoqlarni oldindan biling.",
+            feat4_title: "O‘lim hisoblagichi",
+            feat4_desc: "Har bir darajada necha marta o‘lganingizni ko‘ring.",
+            screenshots_title: "Skrinshotlar",
+            ss1_text: "Tuzoqli platforma",
+            ss2_text: "Xavfli zonalar",
+            ss3_text: "Aniq sakrashlar",
+            ss4_text: "Darajalar dizayni",
+            donate_title: "🤝 Qo‘llab-quvvatlash",
+            donate_text: "Agar o‘yin sizga yoqsa va yangi kontent tezroq chiqishini istasangiz — ixtiyoriy donat qoldiring.",
+            donate_note: "*Har bir donat yangi darajalar va tez yangilanishlar uchun turtki!",
+            android_download_btn: "Android versiyasini yuklab olish (APK)",
+            contact_text: "Savol yoki takliflar",
+            nav_features: "Xususiyatlar",
+            nav_screenshots: "Skrinshotlar",
+            nav_download: "Yuklab olish",
+            nav_donate: "Donation"
+        },
+        ru: {
+            subtitle: "Классический платформер • Хардкор",
+            badge: "🔥 ДЛЯ ЛЮБИТЕЛЕЙ СЛОЖНЫХ ИГР",
+            hero_title1: "Умри.",
+            hero_title2: "Учись.",
+            hero_title3: "Повторяй.",
+            hero_title4: "Пощады нет.",
+            hero_desc: "2D платформер в стиле Level Devil, Geometry Dash и Cat Mario. Одна ошибка – и сначала. Ловушки и коварные уровни.",
+            store_windows: "Microsoft Store (Windows)",
+            store_android: "Android версия (APK)",
+            preview_text: "ГЕЙМПЛЕЙ",
+            features_title: "Особенности",
+            feat1_title: "Брутальная сложность",
+            feat1_desc: "Каждый уровень – испытание, каждый прыжок – риск.",
+            feat2_title: "Мгновенное возрождение",
+            feat2_desc: "После смерти сразу перезапуск.",
+            feat3_title: "Память и тайминг",
+            feat3_desc: "Изучайте уровни, предугадывайте ловушки.",
+            feat4_title: "Счётчик смертей",
+            feat4_desc: "Смотрите, сколько раз вы умерли на каждом уровне.",
+            screenshots_title: "Скриншоты",
+            ss1_text: "Коварная платформа",
+            ss2_text: "Опасные зоны",
+            ss3_text: "Точные прыжки",
+            ss4_text: "Дизайн уровней",
+            donate_title: "🤝 Поддержка",
+            donate_text: "Если игра вам нравится и вы хотите новый контент быстрее — оставьте донат.",
+            donate_note: "*Каждый донат ускоряет выход новых уровней!",
+            android_download_btn: "Скачать Android версию (APK)",
+            contact_text: "Вопросы или предложения",
+            nav_features: "Особенности",
+            nav_screenshots: "Скриншоты",
+            nav_download: "Скачать",
+            nav_donate: "Donation"
+        },
+        en: {
+            subtitle: "Classic Platformer • Hardcore Challenge",
+            badge: "🔥 FOR HARDCORE GAMERS",
+            hero_title1: "Die.",
+            hero_title2: "Learn.",
+            hero_title3: "Repeat.",
+            hero_title4: "No mercy.",
+            hero_desc: "2D platformer in the style of Level Devil, Geometry Dash, and Cat Mario. One mistake – start over. Traps and tricky levels.",
+            store_windows: "Microsoft Store (Windows)",
+            store_android: "Android version (APK)",
+            preview_text: "GAMEPLAY PREVIEW",
+            features_title: "Features",
+            feat1_title: "Brutal difficulty",
+            feat1_desc: "Every level is a trial, every jump a risk.",
+            feat2_title: "Instant respawn",
+            feat2_desc: "Restart immediately after death.",
+            feat3_title: "Memory & timing",
+            feat3_desc: "Learn levels, predict traps.",
+            feat4_title: "Death counter",
+            feat4_desc: "See how many attempts per level.",
+            screenshots_title: "Screenshots",
+            ss1_text: "Tricky platform",
+            ss2_text: "Danger zones",
+            ss3_text: "Precise jumps",
+            ss4_text: "Level design",
+            donate_title: "🤝 Support the game",
+            donate_text: "If you enjoy the game and want new content faster — leave a donation.",
+            donate_note: "*Every donation helps create new levels and updates!",
+            android_download_btn: "Download Android version (APK)",
+            contact_text: "Questions or suggestions",
+            nav_features: "Features",
+            nav_screenshots: "Screenshots",
+            nav_download: "Download",
+            nav_donate: "Donate"
+        }
+    };
+
+    let currentLang = 'en';
+
+    function applyLanguage(lang) {
+        const t = translations[lang];
+        if (!t) return;
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (t[key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = t[key];
+                } else {
+                    el.innerHTML = t[key];
+                }
+            }
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        currentLang = lang;
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const lang = btn.getAttribute('data-lang');
+            applyLanguage(lang);
+        });
+    });
+
+    function scrollToSection(id) {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.scrollToSection = scrollToSection;
+
+    // Logo rasm (agar rasm bo'lmasa, placeholder)
+    const logoImg = document.getElementById('gameLogo');
+    if (logoImg) {
+        logoImg.onerror = function() {
+            this.src = 'https://placehold.co/1080x1080/1e2a47/ff6b6b?text=INFINITY+ONE';
+        };
+    }
+
+    // Android havola
+    document.getElementById('androidLink')?.setAttribute('href', 'https://www.taptap.io/app/33915926');
+    document.getElementById('androidDownloadBtn')?.setAttribute('href', 'https://www.taptap.io/app/33915926');
+
+    // Donation linklar
+    document.getElementById('mastercardLink')?.setAttribute('href', 'https://donat-iota.vercel.app/');
+    document.getElementById('somLink')?.setAttribute('href', 'https://donat-iota.vercel.app/som.html');
+    document.getElementById('alertsLink')?.setAttribute('href', 'https://www.donationalerts.com/r/musoxon_pro');
+
+    applyLanguage('en');
+</script>
+</body>
+</html>
