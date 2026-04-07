@@ -34,6 +34,9 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <!-- Schema.org -->
     <script type="application/ld+json">
     {
@@ -58,16 +61,35 @@
             color: #f0f3fa;
             line-height: 1.5;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
         .glow-text { text-shadow: 0 0 5px rgba(255,70,85,0.6), 0 0 10px rgba(255,70,85,0.3); }
+        
+        /* Parallax background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 40%, rgba(255,70,85,0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
         
         /* Header - FIXED/STICKY EMAS, oddiy statik */
         .header {
             padding: 16px 0;
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            background: #0a0f1e;
+            background: rgba(10,15,30,0.95);
+            backdrop-filter: blur(10px);
             width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
         }
         .nav {
             display: flex;
@@ -76,68 +98,251 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-        .logo h1 { font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #FFD166, #FF6B6B); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo h1 { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            background: linear-gradient(135deg, #FFD166, #FF6B6B); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            color: transparent;
+            transition: transform 0.3s ease;
+        }
+        .logo h1:hover { transform: scale(1.05); }
         .logo a { text-decoration: none; }
         .logo p { font-size: 0.65rem; color: #8e9aaf; }
         .lang-switch { display: flex; gap: 6px; background: #1a1f2e; padding: 4px 8px; border-radius: 40px; }
-        .lang-btn { background: none; border: none; color: #aab3cf; font-weight: bold; cursor: pointer; padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; }
-        .lang-btn.active { background: #ff4d4d; color: white; }
+        .lang-btn { background: none; border: none; color: #aab3cf; font-weight: bold; cursor: pointer; padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; transition: all 0.2s ease; }
+        .lang-btn.active { background: #ff4d4d; color: white; transform: scale(1.05); }
+        .lang-btn:hover:not(.active) { background: rgba(255,77,77,0.3); color: white; }
         .nav-links { display: flex; gap: 16px; flex-wrap: wrap; }
-        .nav-links a { color: #ccd6f0; text-decoration: none; font-weight: 500; font-size: 0.85rem; cursor: pointer; }
-        .nav-links a:hover { color: #FF6B6B; }
+        .nav-links a { 
+            color: #ccd6f0; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.85rem; 
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FF6B6B;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: #FF6B6B; transform: translateY(-2px); }
         
         /* Hero */
-        .hero { display: flex; flex-wrap: wrap; align-items: center; gap: 30px; padding: 40px 0 30px; }
+        .hero { display: flex; flex-wrap: wrap; align-items: center; gap: 30px; padding: 60px 0 40px; }
         .hero-content { flex: 1; min-width: 260px; }
-        .hero-badge { background: #ff4d4d22; border-left: 4px solid #ff6b6b; padding: 4px 12px; border-radius: 40px; display: inline-block; font-size: 0.7rem; font-weight: 600; color: #ffb4a2; margin-bottom: 16px; }
+        .hero-badge { 
+            background: #ff4d4d22; 
+            border-left: 4px solid #ff6b6b; 
+            padding: 4px 12px; 
+            border-radius: 40px; 
+            display: inline-block; 
+            font-size: 0.7rem; 
+            font-weight: 600; 
+            color: #ffb4a2; 
+            margin-bottom: 16px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
         .hero-content h2 { font-size: 2.3rem; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
         .hero-content p { font-size: 1rem; color: #aab3cf; margin-bottom: 24px; }
         .btn-group { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-        .store-btn, .android-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+        .store-btn, .android-btn { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            padding: 10px 20px; 
+            border-radius: 60px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
         .store-btn { background: #1e2a47; color: white; border: 1px solid #2e3b5e; }
-        .store-btn:hover { background: #ff4d4d; transform: scale(1.02); }
+        .store-btn:hover { background: #ff4d4d; transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 20px rgba(255,77,77,0.3); }
         .android-btn { background: #3ddc84; color: #0a0f1e; }
-        .android-btn:hover { background: #2bb673; }
-        .hero-image { flex: 1; text-align: center; background: rgba(255,255,255,0.02); border-radius: 48px; padding: 16px; }
-        .game-logo { max-width: 280px; width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 32px; box-shadow: 0 20px 35px rgba(0,0,0,0.4); }
+        .android-btn:hover { background: #2bb673; transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 20px rgba(61,220,132,0.3); }
+        .hero-image { 
+            flex: 1; 
+            text-align: center; 
+            background: rgba(255,255,255,0.02); 
+            border-radius: 48px; 
+            padding: 16px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .game-logo { 
+            max-width: 280px; 
+            width: 100%; 
+            aspect-ratio: 1; 
+            object-fit: contain; 
+            border-radius: 32px; 
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        .game-logo:hover { transform: scale(1.02) rotate(2deg); box-shadow: 0 25px 40px rgba(255,77,77,0.2); }
         
         /* Features */
-        .features, .screenshots, .faq-section, .donation-section { padding: 50px 0; text-align: center; }
-        .section-title { font-size: 1.8rem; margin-bottom: 32px; font-weight: 700; position: relative; display: inline-block; }
-        .section-title:after { content: ''; position: absolute; bottom: -10px; left: 20%; width: 60%; height: 3px; background: #ff6b6b; }
+        .features, .screenshots, .faq-section, .donation-section { padding: 60px 0; text-align: center; }
+        .section-title { 
+            font-size: 1.8rem; 
+            margin-bottom: 32px; 
+            font-weight: 700; 
+            position: relative; 
+            display: inline-block;
+        }
+        .section-title:after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: 20%; 
+            width: 60%; 
+            height: 3px; 
+            background: linear-gradient(90deg, transparent, #ff6b6b, #ffd166, #ff6b6b, transparent);
+            border-radius: 3px;
+        }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .feature-card { background: rgba(20,28,44,0.7); padding: 20px 16px; border-radius: 28px; transition: 0.2s; }
-        .feature-card:hover { transform: translateY(-4px); background: #19213a; }
-        .feature-icon { font-size: 2.5rem; }
+        .feature-card { 
+            background: rgba(20,28,44,0.7); 
+            padding: 20px 16px; 
+            border-radius: 28px; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .feature-card:hover { 
+            transform: translateY(-8px) scale(1.02); 
+            background: #19213a;
+            border-color: rgba(255,107,107,0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .feature-icon { 
+            font-size: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover .feature-icon { transform: scale(1.1) rotate(5deg); }
         .feature-card h3 { font-size: 1.2rem; margin: 8px 0; }
         .feature-card p { font-size: 0.85rem; color: #aab3cf; }
         
         /* Screenshots */
         .screenshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
-        .screenshot-card { background: #11161f; border-radius: 28px; overflow: hidden; transition: 0.2s; }
-        .screenshot-card:hover { transform: translateY(-5px); }
-        .screenshot-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-        .screenshot-card p { padding: 12px; font-size: 0.9rem; font-weight: 600; color: #ffb4a2; }
+        .screenshot-card { 
+            background: #11161f; 
+            border-radius: 28px; 
+            overflow: hidden; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .screenshot-card:hover { 
+            transform: translateY(-8px) scale(1.02); 
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+        }
+        .screenshot-card img { 
+            width: 100%; 
+            aspect-ratio: 16/9; 
+            object-fit: cover; 
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .screenshot-card:hover img { transform: scale(1.05); }
+        .screenshot-card p { 
+            padding: 12px; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            color: #ffb4a2;
+            transition: all 0.3s ease;
+        }
+        .screenshot-card:hover p { background: rgba(255,107,107,0.1); letter-spacing: 0.5px; }
         
         /* FAQ */
         .faq-grid { max-width: 800px; margin: 0 auto; text-align: left; }
-        .faq-item { background: rgba(20,28,44,0.6); border-radius: 24px; margin-bottom: 16px; padding: 18px 22px; }
-        .faq-question { font-size: 1.1rem; font-weight: 700; color: #ffb4a2; margin-bottom: 8px; }
-        .faq-answer { font-size: 0.9rem; color: #b9c3df; }
+        .faq-item { 
+            background: rgba(20,28,44,0.6); 
+            border-radius: 24px; 
+            margin-bottom: 16px; 
+            padding: 18px 22px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .faq-item:hover { 
+            background: rgba(30,40,60,0.8);
+            transform: translateX(5px);
+            border-color: rgba(255,107,107,0.3);
+        }
+        .faq-question { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            color: #ffb4a2;
+            transition: color 0.3s ease;
+        }
+        .faq-item:hover .faq-question { color: #ff6b6b; }
+        .faq-answer { font-size: 0.9rem; color: #b9c3df; margin-top: 8px; }
         
         /* Donation */
-        .donation-card { max-width: 550px; margin: 0 auto; background: #1a1f30; padding: 30px 24px; border-radius: 40px; }
+        .donation-card { 
+            max-width: 550px; 
+            margin: 0 auto; 
+            background: linear-gradient(135deg, #1a1f30, #151a2a);
+            padding: 30px 24px; 
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,107,107,0.2);
+        }
+        .donation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: rgba(255,107,107,0.5);
+        }
         .donation-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 25px 0 15px; }
-        .donate-link { padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+        .donate-link { 
+            padding: 10px 20px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
         .donate-link.mastercard { background: #eb1c2e; color: white; }
         .donate-link.som { background: #2ecc71; color: #1e1e2a; }
         .donate-link.alerts { background: #ff6b6b; color: white; }
-        .donate-link:hover { transform: translateY(-2px); filter: brightness(1.05); }
+        .donate-link:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            filter: brightness(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
         
+        /* Footer */
         .footer { margin-top: 40px; padding: 30px 0; border-top: 1px solid #1f2a3e; text-align: center; color: #7d89b0; font-size: 0.8rem; }
-        .footer a { color: #ffb4a2; text-decoration: none; }
+        .footer a { color: #ffb4a2; text-decoration: none; transition: color 0.3s ease; }
+        .footer a:hover { color: #ff6b6b; text-decoration: underline; }
         
-        /* Mobil tuzatmalar */
+        /* Animation classes for AOS override */
+        [data-aos] {
+            pointer-events: auto !important;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             .header { padding: 12px 0; }
@@ -165,6 +370,12 @@
             .features-grid { grid-template-columns: 1fr; }
             .store-btn, .android-btn { padding: 8px 16px; font-size: 0.8rem; }
         }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0f1e; }
+        ::-webkit-scrollbar-thumb { background: #ff6b6b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff4d4d; }
     </style>
 </head>
 <body>
@@ -173,15 +384,15 @@
     <div class="container">
         <div class="nav">
             <div class="logo">
-                <a href="/"><h1>INFINITY ONE</h1></a>
-                <p class="trans" data-key="subtitle">Classic Platformer • Hardcore Challenge</p>
+                <a href="/"><h1 data-aos="fade-right">INFINITY ONE</h1></a>
+                <p class="trans" data-key="subtitle" data-aos="fade-right" data-aos-delay="100">Classic Platformer • Hardcore Challenge</p>
             </div>
-            <div class="lang-switch">
+            <div class="lang-switch" data-aos="fade-down">
                 <button class="lang-btn" data-lang="uz">🇺🇿 Uz</button>
                 <button class="lang-btn" data-lang="ru">🇷🇺 Ru</button>
                 <button class="lang-btn active" data-lang="en">🇬🇧 En</button>
             </div>
-            <div class="nav-links">
+            <div class="nav-links" data-aos="fade-left">
                 <a class="trans" data-key="nav_features" onclick="scrollToSection('features')">Xususiyatlar</a>
                 <a class="trans" data-key="nav_screenshots" onclick="scrollToSection('screenshots')">Skrinshotlar</a>
                 <a class="trans" data-key="nav_faq" onclick="scrollToSection('faq')">Savollar</a>
@@ -195,84 +406,97 @@
 <main>
     <div class="container">
         <div class="hero">
-            <div class="hero-content">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
                 <div class="hero-badge trans" data-key="badge">🔥 QIYIN O‘YINLAR UCHUN</div>
                 <h2><span class="trans" data-key="hero_title1">Die.</span> <span class="glow-text trans" data-key="hero_title2">Learn.</span> <span class="trans" data-key="hero_title3">Repeat.</span><br><span class="trans" data-key="hero_title4">No mercy.</span></h2>
                 <p class="trans" data-key="hero_desc">Level Devil, Geometry Dash va Cat Mario uslubidagi 2D platformer. Bir xato – boshidan. Tuzoqlar va ayyor darajalar.</p>
                 <div class="btn-group" id="download">
-                    <a href="https://apps.microsoft.com/store/detail/9PB4W9XMNQZ3" target="_blank" rel="noopener" class="store-btn">🖥️ <span class="trans" data-key="store_windows">Microsoft Store (Windows)</span></a>
-                    <a href="#" class="android-btn" id="androidLink">📱 <span class="trans" data-key="store_android">Android versiya (APK)</span></a>
+                    <a href="https://apps.microsoft.com/store/detail/9PB4W9XMNQZ3" target="_blank" rel="noopener" class="store-btn" data-aos="zoom-in" data-aos-delay="200">🖥️ <span class="trans" data-key="store_windows">Microsoft Store (Windows)</span></a>
+                    <a href="#" class="android-btn" id="androidLink" data-aos="zoom-in" data-aos-delay="300">📱 <span class="trans" data-key="store_android">Android versiya (APK)</span></a>
                 </div>
-                <p style="font-size: 0.75rem;">✅ Windows 10/11 | ⚡ 120 MB | 🔥 Bepul | 🎮 Offline</p>
+                <p style="font-size: 0.75rem;" data-aos="fade-up" data-aos-delay="400">✅ Windows 10/11 | ⚡ 120 MB | 🔥 Bepul | 🎮 Offline</p>
             </div>
-            <div class="hero-image">
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
                 <img src="img/logo.png" alt="Infinity One Logo" class="game-logo" width="280" height="280">
             </div>
         </div>
 
         <div class="features" id="features">
-            <h2 class="section-title trans" data-key="features_title">Xususiyatlar</h2>
+            <h2 class="section-title trans" data-key="features_title" data-aos="fade-up">Xususiyatlar</h2>
             <div class="features-grid">
-                <div class="feature-card"><div class="feature-icon">⚡</div><h3 class="trans" data-key="feat1_title">Brutal qiyinchilik</h3><p class="trans" data-key="feat1_desc">Har bir daraja sinov, har bir sakrash xavf.</p></div>
-                <div class="feature-card"><div class="feature-icon">🔁</div><h3 class="trans" data-key="feat2_title">Instant respawn</h3><p class="trans" data-key="feat2_desc">O‘limdan so‘ng darhol qayta boshlash.</p></div>
-                <div class="feature-card"><div class="feature-icon">🧠</div><h3 class="trans" data-key="feat3_title">Yod olish & vaqt</h3><p class="trans" data-key="feat3_desc">Darajalarni o‘rganing, tuzoqlarni oldindan biling.</p></div>
-                <div class="feature-card"><div class="feature-icon">📈</div><h3 class="trans" data-key="feat4_title">O‘lim hisoblagichi</h3><p class="trans" data-key="feat4_desc">Har bir darajada necha marta o‘lganingizni ko‘ring.</p></div>
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="100"><div class="feature-icon">⚡</div><h3 class="trans" data-key="feat1_title">Brutal qiyinchilik</h3><p class="trans" data-key="feat1_desc">Har bir daraja sinov, har bir sakrash xavf.</p></div>
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="200"><div class="feature-icon">🔁</div><h3 class="trans" data-key="feat2_title">Instant respawn</h3><p class="trans" data-key="feat2_desc">O‘limdan so‘ng darhol qayta boshlash.</p></div>
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="300"><div class="feature-icon">🧠</div><h3 class="trans" data-key="feat3_title">Yod olish & vaqt</h3><p class="trans" data-key="feat3_desc">Darajalarni o‘rganing, tuzoqlarni oldindan biling.</p></div>
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="400"><div class="feature-icon">📈</div><h3 class="trans" data-key="feat4_title">O‘lim hisoblagichi</h3><p class="trans" data-key="feat4_desc">Har bir darajada necha marta o‘lganingizni ko‘ring.</p></div>
             </div>
         </div>
 
         <div class="screenshots" id="screenshots">
-            <h2 class="section-title trans" data-key="screenshots_title">Skrinshotlar</h2>
+            <h2 class="section-title trans" data-key="screenshots_title" data-aos="fade-up">Skrinshotlar</h2>
             <div class="screenshot-grid">
-                <div class="screenshot-card"><img src="img/20260403_150759.png" alt="Tuzoqli platforma" loading="lazy"><p class="trans" data-key="ss1_text">🔪 Tuzoqli platforma</p></div>
-                <div class="screenshot-card"><img src="img/20260403_150832.png" alt="Xavfli zonalar" loading="lazy"><p class="trans" data-key="ss2_text">⚠️ Xavfli zonalar</p></div>
-                <div class="screenshot-card"><img src="img/20260403_150902.png" alt="Aniq sakrashlar" loading="lazy"><p class="trans" data-key="ss3_text">🎯 Aniq sakrashlar</p></div>
-                <div class="screenshot-card"><img src="img/20260403_150931.png" alt="Darajalar dizayni" loading="lazy"><p class="trans" data-key="ss4_text">🏗️ Darajalar dizayni</p></div>
+                <div class="screenshot-card" data-aos="zoom-in-up" data-aos-delay="100"><img src="img/20260403_150759.png" alt="Tuzoqli platforma" loading="lazy"><p class="trans" data-key="ss1_text">🔪 Tuzoqli platforma</p></div>
+                <div class="screenshot-card" data-aos="zoom-in-up" data-aos-delay="200"><img src="img/20260403_150832.png" alt="Xavfli zonalar" loading="lazy"><p class="trans" data-key="ss2_text">⚠️ Xavfli zonalar</p></div>
+                <div class="screenshot-card" data-aos="zoom-in-up" data-aos-delay="300"><img src="img/20260403_150902.png" alt="Aniq sakrashlar" loading="lazy"><p class="trans" data-key="ss3_text">🎯 Aniq sakrashlar</p></div>
+                <div class="screenshot-card" data-aos="zoom-in-up" data-aos-delay="400"><img src="img/20260403_150931.png" alt="Darajalar dizayni" loading="lazy"><p class="trans" data-key="ss4_text">🏗️ Darajalar dizayni</p></div>
             </div>
         </div>
 
         <div class="faq-section" id="faq">
-            <h2 class="section-title trans" data-key="faq_title">Ko‘p beriladigan savollar</h2>
+            <h2 class="section-title trans" data-key="faq_title" data-aos="fade-up">Ko‘p beriladigan savollar</h2>
             <div class="faq-grid">
-                <div class="faq-item"><div class="faq-question">1 Infinity One qanday o‘yin?</div><div class="faq-answer">Infinity One – qiyin tuzoqlarga to‘la 2D platformer. Siz kichik xatoda o‘lasiz va darhol boshidan boshlaysiz. Level Devil, Geometry Dash va Cat Mario uslubida.</div></div>
-                <div class="faq-item"><div class="faq-question">2 Bepulmi?</div><div class="faq-answer">Ha, asosiy o‘yin butunlay bepul. Windows Store va Android APK versiyalarida hech qanday to‘lov talab qilinmaydi.</div></div>
-                <div class="faq-item"><div class="faq-question">3 Qaysi qurilmalarda ishlaydi?</div><div class="faq-answer">Windows 10/11 va Android 8.0+. Offline rejimda to‘liq qo‘llab-quvvatlanadi.</div></div>
-                <div class="faq-item"><div class="faq-question">4 Nega aynan Infinity One?</div><div class="faq-answer">Brutal qiyinchilik, instant respawn, o‘lim hisoblagichi va 50+ ayyor darajalar. Har bir o‘limdan saboq olasiz.</div></div>
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="100"><div class="faq-question">1. Infinity One qanday o‘yin?</div><div class="faq-answer">Infinity One – qiyin tuzoqlarga to‘la 2D platformer. Siz kichik xatoda o‘lasiz va darhol boshidan boshlaysiz. Level Devil, Geometry Dash va Cat Mario uslubida.</div></div>
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="150"><div class="faq-question">2. Bepulmi?</div><div class="faq-answer">Ha, asosiy o‘yin butunlay bepul. Windows Store va Android APK versiyalarida hech qanday to‘lov talab qilinmaydi.</div></div>
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="200"><div class="faq-question">3. Qaysi qurilmalarda ishlaydi?</div><div class="faq-answer">Windows 10/11 va Android 8.0+. Offline rejimda to‘liq qo‘llab-quvvatlanadi.</div></div>
+                <div class="faq-item" data-aos="fade-right" data-aos-delay="250"><div class="faq-question">4. Nega aynan Infinity One?</div><div class="faq-answer">Brutal qiyinchilik, instant respawn, o‘lim hisoblagichi va 50+ ayyor darajalar. Har bir o‘limdan saboq olasiz.</div></div>
             </div>
         </div>
 
         <div class="donation-section" id="donate">
-            <div class="donation-card">
+            <div class="donation-card" data-aos="flip-up">
                 <h2 class="trans" data-key="donate_title">🤝 Qo‘llab-quvvatlash</h2>
                 <p class="trans" data-key="donate_text">Agar o‘yin sizga yoqsa va yangi kontent tezroq chiqishini istasangiz — ixtiyoriy donat qoldiring.</p>
                 <div class="donation-buttons">
-                    <a href="#" class="donate-link mastercard" id="mastercardLink">💳 Mastercard</a>
-                    <a href="#" class="donate-link som" id="somLink">💵 So‘m donat</a>
-                    <a href="#" class="donate-link alerts" id="alertsLink">🔔 Donation Alerts</a>
+                    <a href="#" class="donate-link mastercard" id="mastercardLink" data-aos="zoom-in" data-aos-delay="100">💳 Mastercard</a>
+                    <a href="#" class="donate-link som" id="somLink" data-aos="zoom-in" data-aos-delay="200">💵 So‘m donat</a>
+                    <a href="#" class="donate-link alerts" id="alertsLink" data-aos="zoom-in" data-aos-delay="300">🔔 Donation Alerts</a>
                 </div>
-                <p style="margin-top: 14px; font-size: 0.8rem;" class="trans" data-key="donate_note">*Har bir donat yangi darajalar va tez yangilanishlar uchun turtki!</p>
+                <p style="margin-top: 14px; font-size: 0.8rem;" class="trans" data-key="donate_note" data-aos="fade-up" data-aos-delay="400">*Har bir donat yangi darajalar va tez yangilanishlar uchun turtki!</p>
             </div>
         </div>
 
         <div style="text-align: center; margin: 15px 0 45px;">
-            <a href="#" id="androidDownloadBtn" class="android-btn" style="background: #3ddc84; padding: 12px 24px;">📲 <span class="trans" data-key="android_download_btn">Android versiyasini yuklab olish (APK)</span></a>
+            <a href="#" id="androidDownloadBtn" class="android-btn" style="background: #3ddc84; padding: 12px 24px;" data-aos="zoom-in" data-aos-delay="500">📲 <span class="trans" data-key="android_download_btn">Android versiyasini yuklab olish (APK)</span></a>
         </div>
     </div>
 </main>
 
 <footer class="footer">
     <div class="container">
-        <p>📧 <span class="trans" data-key="contact_text">Savol yoki takliflar</span>: <a href="mailto:mgulmaxammadov@gmail.com">mgulmaxammadov@gmail.com</a></p>
-        <p>🎮 Infinity One Classic Platformer – Hardcore 2D platformer | Offline game for PC and Android</p>
-        <p>
-            <a href="/sitemap.xml"></a>
-            <a href="/robots.txt"></a>
-            <a href="https://donat-iota.vercel.app/infinity-one-privacy-policy.html">Maxfiylik siyosati</a> | 
+        <p data-aos="fade-up">📧 <span class="trans" data-key="contact_text">Savol yoki takliflar</span>: <a href="mailto:mgulmaxammadov@gmail.com">mgulmaxammadov@gmail.com</a></p>
+        <p data-aos="fade-up" data-aos-delay="50">🎮 Infinity One Classic Platformer – Hardcore 2D platformer | Offline game for PC and Android</p>
+        <p data-aos="fade-up" data-aos-delay="100">
+            <a href="/sitemap.xml">Sitemap</a> | 
+            <a href="/robots.txt">Robots.txt</a> |
+            <a href="https://donat-iota.vercel.app/infinity-one-privacy-policy.html">Maxfiylik siyosati</a>
         </p>
-        <p>© 2026 Zetra Studio</p>
+        <p data-aos="fade-up" data-aos-delay="150">© 2026 Zetra Studio</p>
     </div>
 </footer>
 
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: false,
+        mirror: true,
+        offset: 50,
+        easing: 'ease-out-quad'
+    });
+    
+    // Translations
     const translations = {
         uz: {
             subtitle: "Classic Platformer • Hardcore Challenge",
@@ -339,12 +563,21 @@
             btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
         });
         document.documentElement.lang = lang;
+        currentLang = lang;
     }
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
     });
     window.scrollToSection = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+    // Parallax effect for background
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        document.body.style.backgroundPosition = `${x}px ${y}px`;
+    });
+
+    // Donation links
     document.getElementById('androidLink')?.setAttribute('href', 'https://www.taptap.io/app/33915926');
     document.getElementById('androidDownloadBtn')?.setAttribute('href', 'https://www.taptap.io/app/33915926');
     document.getElementById('mastercardLink')?.setAttribute('href', 'https://donat-iota.vercel.app/');
@@ -352,9 +585,11 @@
     document.getElementById('alertsLink')?.setAttribute('href', 'https://dalink.to/musoxon_');
 
     applyLanguage('uz');
+    
+    // Reinitialize AOS on dynamic content changes
+    window.addEventListener('load', () => {
+        AOS.refresh();
+    });
 </script>
 </body>
 </html>
-
-
-Bu kodni hamma tomonlama yaxshila. Broq  ishlatilgan img va linklar butunlay oʻzgarmasin
