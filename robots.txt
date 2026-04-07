@@ -1,0 +1,28 @@
+# Barcha botlarga ruxsat
+User-agent: *
+Allow: /
+
+# Asosiy sahifani indekslash
+Allow: /$
+
+# Rasmlarni indekslash
+Allow: /img/
+
+# Sayt xaritasi manzili
+Sitemap: https://infinity-one-game.vercel.app/sitemap.xml
+
+# Indekslanmasligi kerak bo'lgan narsalar (agar bo'lsa)
+Disallow: /cdn-cgi/
+Disallow: /wp-admin/
+
+# Qidiruv botlariga tez-tez kelish uchun
+Crawl-delay: 1
+
+# Google botga maxsus
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Yandex bot
+User-agent: Yandex
+Allow: /
