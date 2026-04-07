@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <url>
+    <loc>https://infinity-one-game.vercel.app/</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://infinity-one-game.vercel.app/img/logo.png</image:loc>
+      <image:title>Infinity One Logo</image:title>
+      <image:caption>Infinity One Classic Platformer - Hardcore 2D Platformer</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://infinity-one-game.vercel.app/img/20260403_150759.png</image:loc>
+      <image:title>Infinity One gameplay trap platform</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://infinity-one-game.vercel.app/img/20260403_150832.png</image:loc>
+      <image:title>Danger zones in Infinity One</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://infinity-one-game.vercel.app/img/20260403_150902.png</image:loc>
+      <image:title>Precise jumps platformer</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://infinity-one-game.vercel.app/img/20260403_150931.png</image:loc>
+      <image:title>Infinity One level design</image:title>
+    </image:image>
+  </url>
+  
+  <!-- Agar til versiyalari alohida sahifalarda bo'lsa, ularni qo'shing -->
+  <url>
+    <loc>https://infinity-one-game.vercel.app/uz</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinity-one-game.vercel.app/ru</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinity-one-game.vercel.app/en</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
