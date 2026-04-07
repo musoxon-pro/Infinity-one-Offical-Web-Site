@@ -79,16 +79,13 @@
             z-index: -1;
         }
         
-        /* Header - FIXED/STICKY EMAS, oddiy statik */
+        /* Header - STATIC, not sticky/fixed */
         .header {
             padding: 16px 0;
             border-bottom: 1px solid rgba(255,255,255,0.08);
             background: rgba(10,15,30,0.95);
             backdrop-filter: blur(10px);
             width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
             transition: all 0.3s ease;
         }
         .nav {
@@ -337,11 +334,6 @@
         .footer a { color: #ffb4a2; text-decoration: none; transition: color 0.3s ease; }
         .footer a:hover { color: #ff6b6b; text-decoration: underline; }
         
-        /* Animation classes for AOS override */
-        [data-aos] {
-            pointer-events: auto !important;
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
@@ -364,6 +356,14 @@
             .faq-item { padding: 14px 16px; }
             .faq-question { font-size: 1rem; }
             .donation-card { padding: 20px 16px; }
+            
+            /* Mobile - remove some animations to prevent issues */
+            [data-aos] {
+                pointer-events: auto !important;
+            }
+            .hero-image {
+                animation: none;
+            }
         }
         @media (max-width: 480px) {
             .hero-content h2 { font-size: 1.5rem; }
@@ -384,15 +384,15 @@
     <div class="container">
         <div class="nav">
             <div class="logo">
-                <a href="/"><h1 data-aos="fade-right">INFINITY ONE</h1></a>
-                <p class="trans" data-key="subtitle" data-aos="fade-right" data-aos-delay="100">Classic Platformer • Hardcore Challenge</p>
+                <a href="/"><h1>INFINITY ONE</h1></a>
+                <p class="trans" data-key="subtitle">Classic Platformer • Hardcore Challenge</p>
             </div>
-            <div class="lang-switch" data-aos="fade-down">
+            <div class="lang-switch">
                 <button class="lang-btn" data-lang="uz">🇺🇿 Uz</button>
                 <button class="lang-btn" data-lang="ru">🇷🇺 Ru</button>
                 <button class="lang-btn active" data-lang="en">🇬🇧 En</button>
             </div>
-            <div class="nav-links" data-aos="fade-left">
+            <div class="nav-links">
                 <a class="trans" data-key="nav_features" onclick="scrollToSection('features')">Xususiyatlar</a>
                 <a class="trans" data-key="nav_screenshots" onclick="scrollToSection('screenshots')">Skrinshotlar</a>
                 <a class="trans" data-key="nav_faq" onclick="scrollToSection('faq')">Savollar</a>
@@ -472,14 +472,14 @@
 
 <footer class="footer">
     <div class="container">
-        <p data-aos="fade-up">📧 <span class="trans" data-key="contact_text">Savol yoki takliflar</span>: <a href="mailto:mgulmaxammadov@gmail.com">mgulmaxammadov@gmail.com</a></p>
-        <p data-aos="fade-up" data-aos-delay="50">🎮 Infinity One Classic Platformer – Hardcore 2D platformer | Offline game for PC and Android</p>
-        <p data-aos="fade-up" data-aos-delay="100">
+        <p>📧 <span class="trans" data-key="contact_text">Savol yoki takliflar</span>: <a href="mailto:mgulmaxammadov@gmail.com">mgulmaxammadov@gmail.com</a></p>
+        <p>🎮 Infinity One Classic Platformer – Hardcore 2D platformer | Offline game for PC and Android</p>
+        <p>
             <a href="/sitemap.xml">Sitemap</a> | 
             <a href="/robots.txt">Robots.txt</a> |
             <a href="https://donat-iota.vercel.app/infinity-one-privacy-policy.html">Maxfiylik siyosati</a>
         </p>
-        <p data-aos="fade-up" data-aos-delay="150">© 2026 Zetra Studio</p>
+        <p>© 2026 Zetra Studio</p>
     </div>
 </footer>
 
@@ -487,14 +487,30 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        once: false,
-        mirror: true,
-        offset: 50,
-        easing: 'ease-out-quad'
-    });
+    // Check if device is mobile
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+    
+    // Initialize AOS only for desktop
+    if (!isMobile()) {
+        AOS.init({
+            duration: 800,
+            once: false,
+            mirror: true,
+            offset: 50,
+            easing: 'ease-out-quad'
+        });
+    } else {
+        // On mobile, still init AOS but with minimal settings to prevent issues
+        AOS.init({
+            duration: 400,
+            once: true,
+            mirror: false,
+            offset: 30,
+            disable: false
+        });
+    }
     
     // Translations
     const translations = {
@@ -565,17 +581,16 @@
         document.documentElement.lang = lang;
         currentLang = lang;
     }
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
-    });
     window.scrollToSection = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // Parallax effect for background
-    document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        document.body.style.backgroundPosition = `${x}px ${y}px`;
-    });
+    // Parallax effect for background (desktop only)
+    if (!isMobile()) {
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            document.body.style.backgroundPosition = `${x}px ${y}px`;
+        });
+    }
 
     // Donation links
     document.getElementById('androidLink')?.setAttribute('href', 'https://www.taptap.io/app/33915926');
@@ -586,7 +601,12 @@
 
     applyLanguage('uz');
     
-    // Reinitialize AOS on dynamic content changes
+    // Refresh AOS on window resize
+    window.addEventListener('resize', () => {
+        AOS.refresh();
+    });
+    
+    // Refresh AOS on load
     window.addEventListener('load', () => {
         AOS.refresh();
     });
