@@ -30,15 +30,13 @@
             padding: 0 24px;
         }
 
-        /* Header */
+        /* Header - mobil versiyada fixed emas */
         .header {
-            padding: 24px 0 16px;
+            padding: 20px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(4px);
-            position: sticky;
-            top: 0;
-            background: rgba(10, 15, 30, 0.9);
-            z-index: 100;
+            background: rgba(10, 15, 30, 0.95);
+            position: relative;
+            width: 100%;
         }
 
         .nav {
@@ -50,7 +48,7 @@
         }
 
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FFD166, #FF6B6B);
             -webkit-background-clip: text;
@@ -58,11 +56,16 @@
             color: transparent;
         }
 
+        .logo p {
+            font-size: 0.7rem;
+            color: #8e9aaf;
+        }
+
         .lang-switch {
             display: flex;
-            gap: 10px;
+            gap: 6px;
             background: #1a1f2e;
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 40px;
         }
 
@@ -72,9 +75,10 @@
             color: #aab3cf;
             font-weight: bold;
             cursor: pointer;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 30px;
             transition: 0.2s;
+            font-size: 0.8rem;
         }
 
         .lang-btn.active {
@@ -84,8 +88,9 @@
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 20px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .nav-links a {
@@ -94,6 +99,8 @@
             font-weight: 500;
             transition: 0.2s;
             cursor: pointer;
+            font-size: 0.9rem;
+            padding: 6px 0;
         }
 
         .nav-links a:hover {
@@ -106,8 +113,8 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 48px;
-            padding: 60px 0 40px;
+            gap: 32px;
+            padding: 40px 0 30px;
         }
 
         .hero-content {
@@ -118,46 +125,45 @@
         .hero-badge {
             background: #ff4d4d22;
             border-left: 4px solid #ff6b6b;
-            padding: 6px 14px;
+            padding: 4px 12px;
             border-radius: 40px;
             display: inline-block;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             color: #ffb4a2;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .hero-content h2 {
-            font-size: 3.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #aab3cf;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .store-btn, .android-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
+            gap: 8px;
+            padding: 10px 20px;
             border-radius: 60px;
             text-decoration: none;
             font-weight: 700;
             transition: 0.25s;
-            border: none;
-            cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .store-btn {
@@ -187,12 +193,12 @@
             text-align: center;
             background: rgba(255,255,255,0.02);
             border-radius: 48px;
-            padding: 20px;
+            padding: 16px;
         }
 
         .game-logo {
             width: 100%;
-            max-width: 400px;
+            max-width: 320px;
             height: auto;
             aspect-ratio: 1 / 1;
             object-fit: contain;
@@ -207,13 +213,13 @@
 
         /* Features */
         .features, .screenshots, .donation-section {
-            padding: 70px 0;
+            padding: 50px 0;
             text-align: center;
         }
 
         .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 48px;
+            font-size: 1.8rem;
+            margin-bottom: 32px;
             font-weight: 700;
             position: relative;
             display: inline-block;
@@ -222,7 +228,7 @@
         .section-title:after {
             content: '';
             position: absolute;
-            bottom: -12px;
+            bottom: -10px;
             left: 20%;
             width: 60%;
             height: 3px;
@@ -231,38 +237,48 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
         }
 
         .feature-card {
             background: rgba(20, 28, 44, 0.7);
-            padding: 28px 20px;
-            border-radius: 32px;
+            padding: 20px 16px;
+            border-radius: 28px;
             transition: 0.2s;
         }
 
         .feature-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             background: #19213a;
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin: 8px 0;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: #aab3cf;
         }
 
         .screenshot-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 16px;
             justify-content: center;
         }
 
         .screenshot-card {
             background: #11161f;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
-            width: 280px;
+            width: 240px;
         }
 
         .screenshot-card img {
@@ -272,76 +288,205 @@
             background: #0b0f17;
         }
 
+        .screenshot-card p {
+            padding: 10px;
+            font-size: 0.8rem;
+        }
+
         /* Donation */
         .donation-card {
-            max-width: 600px;
+            max-width: 550px;
             margin: 0 auto;
             background: #1a1f30;
-            padding: 40px 32px;
-            border-radius: 48px;
+            padding: 30px 24px;
+            border-radius: 40px;
+        }
+
+        .donation-card h2 {
+            font-size: 1.6rem;
+        }
+
+        .donation-card p {
+            font-size: 0.9rem;
         }
 
         .donation-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
-            margin: 30px 0 20px;
+            margin: 25px 0 15px;
         }
 
         .donate-link {
-            padding: 14px 28px;
+            padding: 10px 20px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             transition: 0.2s;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
 
         .donate-link.mastercard {
             background: #eb1c2e;
             color: white;
-            box-shadow: 0 4px 15px rgba(235, 28, 46, 0.3);
         }
 
         .donate-link.som {
             background: #2ecc71;
             color: #1e1e2a;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
 
         .donate-link.alerts {
             background: #ff6b6b;
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
         .donate-link:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             filter: brightness(1.05);
         }
 
         .footer {
-            margin-top: 60px;
-            padding: 40px 0;
+            margin-top: 40px;
+            padding: 30px 0;
             border-top: 1px solid #1f2a3e;
             text-align: center;
             color: #7d89b0;
+            font-size: 0.8rem;
         }
 
-        @media (max-width: 800px) {
-            .hero-content h2 { font-size: 2.2rem; }
-            .container { padding: 0 20px; }
-            .nav { flex-direction: column; }
-            .game-logo { max-width: 280px; }
-            .donate-link { padding: 10px 20px; font-size: 0.9rem; }
-        }
-        .infinity-one-privacy-policy{
+        .infinity-one-privacy-policy {
             text-decoration: none;
             color: #7d89b0;
+        }
+
+        .infinity-one-privacy-policy:hover {
+            color: #ff6b6b;
+        }
+
+        /* Mobil versiya uchun alohida sozlamalar */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header {
+                padding: 15px 0;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .logo {
+                text-align: center;
+            }
+            
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+            
+            .lang-switch {
+                order: 2;
+            }
+            
+            .nav-links {
+                order: 3;
+                gap: 15px;
+            }
+            
+            .hero {
+                flex-direction: column;
+                padding: 25px 0;
+                gap: 25px;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            .game-logo {
+                max-width: 220px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .features, .screenshots, .donation-section {
+                padding: 35px 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 15px;
+            }
+            
+            .feature-card {
+                padding: 15px 12px;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1rem;
+            }
+            
+            .screenshot-card {
+                width: 180px;
+            }
+            
+            .donation-card {
+                padding: 25px 20px;
+            }
+            
+            .donate-link {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+            
+            .footer {
+                padding: 25px 0;
+            }
+        }
+
+        /* Juda kichik ekranlar uchun */
+        @media (max-width: 480px) {
+            .screenshot-card {
+                width: 160px;
+            }
+            
+            .donation-buttons {
+                gap: 10px;
+            }
+            
+            .donate-link {
+                padding: 7px 14px;
+                font-size: 0.75rem;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -380,7 +525,7 @@
                     <a href="https://apps.microsoft.com/store/detail/9PB4W9XMNQZ3" target="_blank" class="store-btn">🖥️ <span class="trans" data-key="store_windows">Microsoft Store (Windows)</span></a>
                     <a href="#" class="android-btn" id="androidLink">📱 <span class="trans" data-key="store_android">Android versiya (APK)</span></a>
                 </div>
-                <p style="font-size: 0.85rem;">✅ Windows 10/11 | ⚡ 120 MB | 🔥 Bepul asosiy o‘yin</p>
+                <p style="font-size: 0.75rem;">✅ Windows 10/11 | ⚡ 120 MB | 🔥 Bepul asosiy o‘yin</p>
             </div>
             <div class="hero-image">
                 <img src="img/logo.png" alt="Infinity One Logo" class="game-logo" id="gameLogo">
@@ -425,13 +570,13 @@
                         🔔 Donation Alerts
                     </a>
                 </div>
-                <p style="margin-top: 16px;" class="trans" data-key="donate_note">*Har bir donat yangi darajalar va tez yangilanishlar uchun turtki!</p>
+                <p style="margin-top: 14px; font-size: 0.8rem;" class="trans" data-key="donate_note">*Har bir donat yangi darajalar va tez yangilanishlar uchun turtki!</p>
             </div>
         </div>
 
         <!-- Android versiya havolasi -->
-        <div style="text-align: center; margin: 20px 0 40px;">
-            <a href="#" id="androidDownloadBtn" class="android-btn" style="background: #3ddc84; padding: 14px 28px;">📲 <span class="trans" data-key="android_download_btn">Android versiyasini yuklab olish (APK)</span></a>
+        <div style="text-align: center; margin: 15px 0 35px;">
+            <a href="#" id="androidDownloadBtn" class="android-btn" style="background: #3ddc84; padding: 12px 24px;">📲 <span class="trans" data-key="android_download_btn">Android versiyasini yuklab olish (APK)</span></a>
         </div>
     </div>
 </main>
@@ -439,8 +584,8 @@
 <footer class="footer">
     <div class="container">
         <p>📧 <span class="trans" data-key="contact_text">Savol yoki takliflar</span>: <a href="mailto:mgulmaxammadov@gmail.com" style="color:#ffb4a2;">mgulmaxammadov@gmail.com</a></p>
-        <p style="margin-top: 12px;">🎮 Infinity One Classic Platformer – Hardcore 2D platformer</p>
-        <p style="margin-top: 20px;"><a href="https://donat-iota.vercel.app/infinity-one-privacy-policy.html" class="infinity-one-privacy-policy">© 2026 Zetra Studio / Infinity One Privacy Policy</a></p>
+        <p style="margin-top: 10px;">🎮 Infinity One Classic Platformer – Hardcore 2D platformer</p>
+        <p style="margin-top: 15px;"><a href="https://donat-iota.vercel.app/infinity-one-privacy-policy.html" class="infinity-one-privacy-policy">© 2026 Zetra Studio / Infinity One Privacy Policy</a></p>
     </div>
 </footer>
 
@@ -587,7 +732,13 @@
     });
 
     function scrollToSection(id) {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        const element = document.getElementById(id);
+        if (element) {
+            const offset = 20;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
     }
 
     window.scrollToSection = scrollToSection;
